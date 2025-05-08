@@ -1,75 +1,43 @@
-📚 Capítulo 1 
-Introducción a Git y Control de Versiones
-1. ¿Qué es un control de versiones?
-Un control de versiones es un sistema que registra cada cambio realizado en el código fuente de un proyecto. Esto facilita el trabajo en equipo, ya que cada miembro puede ver los cambios realizados por otros y colaborar de manera más eficiente.
+📚 Capitulo 1 - Git: Fundamentos y Herramientas
+<details> <summary><strong>🔗 Que es un control de versiones?</strong></summary>
+Un control de versiones es basicamente un sistema que guarda todos los cambios que haces en el codigo de un proyecto. Asi puedes tener un historial completo de todo lo que ha pasado, como:
 
-Las ventajas del control de versiones incluyen:
+Quien lo cambio
 
-Seguimiento del historial de cambios: puedes ver qué cambios se hicieron y cuándo.
+Cuando lo hizo
 
-Recuperación de versiones anteriores: puedes deshacer cambios si algo no funciona como esperabas.
+Que modifico exactamente
 
-Colaboración eficiente: varios usuarios pueden trabajar sobre el mismo proyecto sin sobrescribir los cambios de los demás.
+Sirve mucho para no perderte, volver atras si algo sale mal y trabajar en equipo sin pisarse los codigos.
 
-2. Fundamentos de Git
-Repositorios: Git utiliza repositorios para almacenar el código y el historial de cambios. Los repositorios pueden ser:
+</details> <details> <summary><strong>⚙️ Lo basico de Git</strong></summary>
+La base de Git son los repositorios, que son como carpetas donde se guardan todas las versiones de tus archivos y los cambios que haces. Pueden ser:
 
-Local: en tu ordenador, para realizar cambios y pruebas sin necesidad de conexión a internet.
+Locales: Estan en tu compu.
 
-Remoto: en un servidor (por ejemplo, en GitHub), lo que permite que otros colaboradores sincronicen sus cambios y aportes.
+Remotos: Estan en internet (como GitHub), para que varios puedan trabajar juntos.
 
-Ramas: Git permite crear ramas para trabajar en diferentes características o correcciones sin afectar el código principal. Estas ramas se pueden combinar (merge) en el repositorio principal.
+Git usa ramas (branches), que te dejan hacer cosas nuevas sin tocar el codigo principal (que suele estar en main).
 
-Merge: El proceso de fusionar los cambios de una rama con la rama principal (usualmente main o master).
+</details> <details> <summary><strong>🛠 Configuracion inicial de Git</strong></summary>
+Antes de empezar, tienes que decirle a Git quien eres con tu nombre y correo. Se hace asi:
 
-Esto asegura que los cambios de todos los colaboradores se integren de manera ordenada.
+bash
+git config --global user.name "Tu Nombre"  
+git config --global user.email "tuemail@dominio.com"  
+Asi todos tus cambios quedan con tu firma.
 
-Push y Pull:
+</details> <details> <summary><strong>🎨 Cambiar el editor de codigo que usa Git</strong></summary> Si quieres que Git abra tu editor favorito (como VSCode) cuando necesite que escribas algo, lo puedes configurar asi:
+bash
+git config --global core.editor "code --wait"  
+</details> <details> <summary><strong>🔧 Revisar tu configuracion de Git</strong></summary> Para ver como tienes configurado Git, usa:
+bash
+git config --list  
+Te muestra todo, desde tu nombre hasta el editor que usas.
 
-Push: Enviar tus cambios locales al repositorio remoto.
+</details> <details> <summary><strong>🚀 Como empezar un proyecto nuevo con Git</strong></summary> Para crear un repositorio Git en tu proyecto, solo haz:
+bash
+git init  
+Y listo, Git empieza a rastrear todo lo que haces en esa carpeta.
 
-Pull: Obtener los cambios más recientes del repositorio remoto a tu repositorio local.
-
-3. Configuración inicial de Git
-Configurar nombre y correo: Git requiere configurar tu nombre y correo electrónico para identificar los cambios que realices.
-
-Esto lo puedes hacer con:
-
-
-git config --global user.name "Tu Nombre"
-git config --global user.email "tuemail@dominio.com"
-Editor de código: Git puede estar configurado para abrir tu editor de código preferido cuando necesites editar mensajes de commit.
-
-Puedes configurar el editor predeterminado, como VSCode, Sublime Text o cualquier otro editor de tu elección:
-
-
-git config --global core.editor "code --wait"  # Para VSCode
-4. Configurar el editor de código que abre Git
-Git usa un editor de texto para cuando necesitas escribir mensajes de commit u otros cambios. Puedes cambiar el editor predeterminado en cualquier momento:
-
-Si prefieres un editor como VSCode, usa:
-
-
-git config --global core.editor "code --wait"
-Para Sublime Text, usa:
-
-
-git config --global core.editor "subl -n -w"
-5. Comprobar la configuración de Git
-Para verificar la configuración de Git y asegurarte de que todo está correctamente configurado (nombre, correo, editor, etc.), puedes usar:
-
-
-git config --list
-Esto te mostrará todas las configuraciones activas en tu entorno de Git.
-
-6. ¿Cómo inicializar un nuevo proyecto Git?
-Para empezar un nuevo proyecto con Git, navega hasta la carpeta de tu proyecto y ejecuta el siguiente comando:
-
-
-git init
-Esto creará un repositorio vacío y permitirá que Git empiece a rastrear los cambios que hagas en los archivos dentro de esa carpeta.
-
-Después de inicializar, agrega tus archivos y realiza el primer commit:
-
-git add .
-git commit -m "Primer commit"   
+</details>
