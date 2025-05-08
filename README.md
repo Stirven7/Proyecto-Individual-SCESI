@@ -520,7 +520,8 @@ Sube tus cambios:
 
 ```bash
 git push origin mi-feature
-Crea Pull Request en GitHub
 ```
+Crea Pull Request en GitHub
+
 
 </details>
