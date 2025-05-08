@@ -199,11 +199,14 @@ git show HEAD
 ```
 Cuando cambias de rama, HEAD se mueve para apuntar al último commit de esa nueva rama.
 
-Tip extra: Usa git log para ver tu historial de commits y confirmar que todo está como quieres.
+Tip : Usa git log para ver tu historial de commits y confirmar que todo está como quieres.
+
+</details>
 
 # 📚 Capítulo 3 - Ramas, Merge y Conflictos en Git
 
 <details>
+
   <summary><strong>🔀 ¿Qué es una Rama y para qué sirve?</strong></summary>
 
 Las ramas son como **líneas de tiempo alternativas** para tu proyecto. Imagina que:
