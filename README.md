@@ -201,4 +201,145 @@ Cuando cambias de rama, HEAD se mueve para apuntar al último commit de esa nuev
 
 Tip extra: Usa git log para ver tu historial de commits y confirmar que todo está como quieres.
 
+# 📚 Capítulo 3 - Ramas, Merge y Conflictos en Git
+
+<details>
+  <summary><strong>🔀 ¿Qué es una Rama y para qué sirve?</strong></summary>
+
+Las ramas son como **líneas de tiempo alternativas** para tu proyecto. Imagina que:
+
+- 🌱 Cada rama es un universo paralelo donde puedes experimentar
+- 🛡️ La rama principal (`main/master`) queda protegida
+- 🧪 Perfecto para probar nuevas ideas sin romper lo que ya funciona
+
+**Casos de uso reales:**
+```bash
+# Nueva funcionalidad
+git checkout -b feature/login-social
+
+# Corrección urgente 
+git checkout -b hotfix/pago-fallido
+
+# Refactorización
+git checkout -b refactor/mejora-performance
+```
+📌 Dato curioso: Las ramas son solo punteros ligeros a commits, ¡no duplican tu repositorio!
+
+</details><details> <summary><strong>💻 Trabajar con Ramas (Comandos Esenciales)</strong></summary>
+  
+Crear y moverse entre ramas:
+
+```bash
+# Crea rama y cámbiate a ella (en un solo paso)
+git checkout -b nueva-rama
+
+# Alternativa moderna (Git 2.23+)
+git switch -c nueva-rama
+
+# Listar todas las ramas (local y remotas)
+git branch -a
+
+# Ver rama actual
+git branch --show-current
+```
+Flujo de trabajo típico:
+
+1️⃣ **Creas rama desde main** (siempre actualizada)  
+2️⃣ **Trabajas en tus cambios**  
+3️⃣ **Haces commits frecuentes**  
+4️⃣ **Fusionas cuando está lista**  
+5️⃣ **Eliminas la rama** (¡no acumules basura!)
+
+</details><details> <summary><strong>⚙️ Fusionar Ramas (Merge)</strong></summary>
+  
+Fusión básica:
+
+```bash
+# 1. Vuelve a la rama principal
+git checkout main
+
+# 2. Actualiza con los últimos cambios
+git pull origin main
+
+# 3. Fusiona la rama feature
+git merge feature/awesome
+```
+Tipos de merge:
+
+🔀 Fast-forward: Cuando no hay divergencias
+
+🔄 3-way merge: Cuando ambas ramas tienen cambios distintos
+
+🧩 Squash merge: Combina todos los commits en uno solo (ideal para limpieza)
+
+Ejemplo visual:
+```bash
+main:    A -- B -- C
+               \
+feature:        D -- E
+```
+Después de git merge feature:
+``` bash
+main: A -- B -- C -- F (merge commit)
+               \     /
+feature:        D -- E
+```
+</details><details> <summary><strong>🔥 Resolver Conflictos (Guía de Supervivencia)</strong></summary>
+  
+Cuando Git te dice:
+```bash
+CONFLICT (content): Merge conflict in archivo.txt
+Automatic merge failed; fix conflicts and then commit the result.
+Pasos para resolver:
+```
+
+Abre el archivo conflictivo
+
+Busca los marcadores:
+```bash
+python
+<<<<<<< HEAD
+Tu versión actual
+=======
+Versión que intentas fusionar
+>>>>>>> rama-conflicto
+```
+Edita para dejar solo lo correcto
+
+Finaliza la resolución:
+
+```bash
+git add archivo-resuelto.txt
+git commit  # Git autocompleta el mensaje
+```
+Herramientas útiles:
+
+VS Code tiene resaltado de conflictos integrado
+
+Usa git mergetool para abrir ayudas visuales
+
+</details><details> <summary><strong>🗑️ Eliminar Ramas (Limpieza necesaria)</strong></summary>
+  
+Eliminación segura:
+
+```bash
+# Elimina rama local (solo si está fusionada)
+git branch -d rama-vieja
+
+# Fuerza eliminación (no fusionada)
+git branch -D rama-experimental
+
+# Elimina rama remota
+git push origin --delete rama-remota-obsoleta
+```
+Verifica antes de borrar:
+
+```bash
+# Muestra ramas ya fusionadas
+git branch --merged
+
+# Ramas no fusionadas
+git branch --no-merged
+```
+💡 Tip : Usa nombres descriptivos como feat/user-profile en vez de rama1
 </details>
