@@ -1,4 +1,5 @@
-📚 Capitulo 1 - Git: Fundamentos y Herramientas
+# 📚 Capitulo 1 - Git: Fundamentos y Herramientas
+
 <details> <summary><strong>🔗 ¿Qué es un control de versiones?</strong></summary>
   
 Un control de versiones es básicamente un sistema que guarda todos los cambios que haces en el código de un proyecto. Así puedes tener un historial completo de todo lo que ha pasado, como:
