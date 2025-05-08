@@ -348,7 +348,7 @@ git branch --no-merged
 
 </details>
 
-# 📚 Capítulo 4 - Repositorios Remotos, Clonación y Ramas Remotas en Git
+# 📚 Capítulo 4 - GitHub
 
 <details>
   <summary><strong>🔗 ¿Git y GitHub son lo mismo?</strong></summary>
@@ -523,5 +523,181 @@ git push origin mi-feature
 ```
 Crea Pull Request en GitHub
 
+</details>
 
+# 📚 Capítulo 5 - Push, pull && pull request
+
+<details>
+  <summary><strong>🔗 ¿Qué es un Pull Request?</strong></summary>
+
+Un **Pull Request (PR)** es como proponer una mejora en un proyecto compartido. Imagina que:
+
+- ✉️ Es una solicitud formal para incluir tus cambios
+- 👀 Permite revisiones de código antes de fusionar
+- 🤝 Facilita el trabajo en equipo
+
+**Flujo completo desde terminal**:
+```bash
+# 1. Crea una rama específica
+git checkout -b fix/login-error
+
+# 2. Haz tus cambios y commitea
+git add .
+git commit -m "fix: corrige validación de email en login"
+
+# 3. Sube la rama
+git push origin fix/login-error
+
+# 4. Crea el PR (requiere GitHub CLI)
+gh pr create \
+  --title "Corrige validación de emails" \
+  --body "Soluciona el problema con dominios .edu" \
+  --reviewer equipo-qa
+```
+Dato : En GitHub, los PR generan automáticamente:
+
+✅ Checks de integración continua
+
+💬 Hilos de discusión
+
+🔍 Vista de diferencias (diffs)
+
+</details><details> <summary><strong>📝 PRs en Borrador (Draft)</strong></summary>
+  
+Los Draft PRs son como "Trabajo en progreso" para tu código:
+
+¿Cuándo usarlos?
+
+🚧 Cuando necesitas feedback temprano
+
+⏳ Para cambios complejos que llevarán tiempo
+
+👥 Para coordinar con otros devs
+
+Cómo gestionarlos:
+
+```bash
+# Crear PR como borrador (CLI)
+gh pr create --draft
+
+# Convertir a PR listo (desde GitHub UI)
+# O via CLI:
+gh pr ready 1234  # Número del PR
+```
+Ventajas:
+
+🔒 No se puede mergear accidentalmente
+
+🏷 Se ve diferente en la lista de PRs
+
+💡 Permite recibir sugerencias tempranas
+
+</details><details> <summary><strong>✅ Pull Requests de Calidad</strong></summary>
+  
+Plantilla para PRs efectivas:
+
+```bash
+## Qué hace este PR
+- Corrige el cálculo de impuestos para clientes internacionales
+- Añade validación de formato VAT
+
+## Por qué es necesario
+Fixes #123  (Referencia al issue)
+
+## Capturas (opcional)
+| Antes         | Después       |
+|-------        |---------      |
+| ![Error](url) | ![Fixed](url) |
+
+## Cómo probar
+1. Ejecutar `npm test`
+2. Verificar flujo de checkout con:
+   ```bash
+   curl -X POST /checkout -d '{"country": "DE"}'
+```
+**Errores comunes a evitar**:
+- 🔄 Mezclar múltiples funcionalidades en un PR
+- 📝 Mensajes genéricos como "Fix bugs"
+- 🚫 Ignorar las guías de estilo del proyecto
+</details>
+
+<details>
+  <summary><strong>🔍 Revisando PRs como Pro</strong></summary>
+
+**Comandos útiles para revisores**:
+```bash
+# Probar localmente el PR
+gh pr checkout 1234
+
+# Ver cambios directamente en terminal
+gh pr diff 1234
+
+# Aprobar con comentario
+gh pr review 1234 --approve -b "LGTM!"
+```
+Checklist de revisión:
+
+🔎 El código cumple su propósito
+
+🧪 Tiene tests adecuados
+
+📚 La documentación se actualizó
+
+🎨 Sigue el estilo del proyecto
+
+⚡ No introduce regresiones
+
+Ejemplo de feedback constructivo:
+
+Sugerencia para `validation.js`:
+```javascript
+// En vez de:
+if (email.includes('@'))
+// Podría ser:
+if (isValidEmail(email))  // Usa la función existente
+Esto mantendría consistencia con el resto del códigobase.
+```
+</details>
+
+<details>
+  <summary><strong>🚀 Flujo Avanzado: Rebasar PRs</strong></summary>
+
+Cuando tu PR tiene conflictos:
+
+```bash
+# 1. Traer últimos cambios
+git fetch origin main
+
+# 2. Rebasar tu rama
+git checkout mi-pr
+git rebase origin/main
+
+# 3. Resolver conflictos (si los hay)
+git mergetool
+
+# 4. Forzar push actualizado
+git push --force-with-lease
+```
+Beneficios:
+
+🧹 Mantiene el historial limpio
+
+🔗 Evita commits de merge innecesarios
+
+🚦 Facilita la revisión lineal
+
+</details><details> <summary><strong>💡 Secretos de los Maintainers</strong></summary>
+  
+Comandos para gestión avanzada:
+
+```bash
+# Combinar PR con squash (CLI)
+gh pr merge 1234 --squash
+
+# Hacer merge desde terminal
+gh pr merge 1234 --merge
+
+# Revertir un PR mal mergeado
+gh pr revert 1234
+```
 </details>
