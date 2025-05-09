@@ -971,3 +971,131 @@ git add -p  # ➕ Añade cambios interactivamente
 hist = log --pretty=format:'%h %ad | %s%d [%an]' --date=short --graph
 ```
 </details>
+
+
+# 📚 Capítulo 8 - Deshacer Mis Cambios
+
+<details>
+  
+  </details><details><summary><strong> 📚 ¿Es Recomendable Deshacer Cambios en Git?  Cambios</strong></summary>
+
+
+1. Información Sensible Expuesta
+
+```bash
+# Si subiste credenciales por accidente
+git filter-repo --invert-paths --path credentials.txt
+```
+2. Bugs Recién Descubiertos
+
+```bash
+# Si un commit introdujo un error crítico
+git revert abc123  # Crea commit que deshace los cambios
+```
+🔹 Recomendado: Cuando trabajas solo o con cambios no compartidos.
+
+</details><details><summary><strong>🔙 Deshacer el Último Commit</strong></summary>
+
+¿Cometiste un error en tu último commit? No entres en pánico, Git tiene la solución. Aquí tus opciones:
+
+```bash
+# 🟢 Conserva cambios en staging (puedes editarlos)
+git reset --soft HEAD~1
+
+# 🟡 Devuelve cambios al área de trabajo (sin staging)
+git reset --mixed HEAD~1  # Este es el predeterminado
+
+# 🔴 Elimina TODO (cambios y commit)
+git reset --hard HEAD~1
+```
+💡 Tip: Usa --soft cuando solo quieras reescribir el mensaje del commit o agregar archivos olvidados.
+
+</details><details> <summary><strong>📝 Arreglar el Último Commit</strong></summary>
+  
+¿Olvidaste incluir un archivo o escribiste mal el mensaje? Arreglémoslo:
+
+```bash
+# 1. Añade los archivos que faltaban
+git add archivo-olvidado.js
+
+# 2. Corrige el commit
+git commit --amend
+```
+⚠️ Importante: Si ya hiciste push, evita --amend para no romper el historial compartido. Mejor usa:
+
+```bash
+git revert HEAD
+```
+
+</details><details> <summary><strong>❌ Deshacer Cambios No Committeados</strong></summary>
+
+¿Cambios que no quieres guardar? Así los eliminas:
+
+```bash
+# Descartar cambios en un archivo
+git restore archivo-arruinado.js
+
+# Descartar TODOS los cambios locales
+git restore .
+
+# Eliminar archivos no rastreados (¡Cuidado!)
+git clean -fd
+```
+🔸 Recuerda: git clean borra archivos permanentemente. Usa -n primero para simular:
+
+```bash
+git clean -n  # "Dry run" - muestra qué borraría
+```
+
+</details><details> <summary><strong>🔄 Revertir Commits Públicos</strong></summary>
+  
+Si ya hiciste push, usa revert para deshacer cambios sin alterar el historial:
+
+```bash
+# Revertir el último commit
+git revert HEAD
+
+# Revertir un commit específico
+git revert abc1234
+
+# Revertir un rango de commits
+git revert abc1234..def5678
+```
+🌐 Ventaja: Esto es seguro para trabajo en equipo, ya que no reescribe historia.
+
+</details><details> <summary><strong>📅 Deshacer un Merge Problemático</strong></summary>
+  
+Merge que salió mal? Soluciones:
+
+```bash
+# Si NO has committeado el merge:
+git merge --abort
+
+# Si YA committeaste el merge:
+git revert -m 1 <merge-commit-hash>
+```
+🛠️ Ejemplo completo:
+
+```bash
+# 1. Encuentra el hash del merge
+git log --merges
+
+# 2. Reviértelo
+git revert -m 1 d4f5g6h
+```
+🔧 La opción -m 1 especifica mantener la rama principal (usualmente main/master).
+
+</details><details> <summary><strong>💡 Rescate de Emergencia</strong></summary>
+  
+¿Perdiste cambios importantes? Tu salvavidas:
+
+```bash
+# Ver TODO lo que has hecho (incluyendo lo "perdido")
+git reflog
+# Recupera un commit eliminado
+git checkout abc1234  # Hash del commit desde reflog
+git checkout -b rescate-abc1234  # Crea rama de rescate
+```
+🧠 Dato curioso: reflog guarda tus acciones por ~90 días. ¡Tu red de seguridad!
+
+</details>
