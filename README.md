@@ -1099,3 +1099,148 @@ git checkout -b rescate-abc1234  # Crea rama de rescate
 🧠 Dato curioso: reflog guarda tus acciones por ~90 días. ¡Tu red de seguridad!
 
 </details>
+
+# 📚 Capítulo 9 - Hooks, Alias y Trucos de Git
+
+<details>
+  <summary><strong>🔗 ¿Qué es un Hook?</strong></summary>
+
+Los hooks son scripts automáticos que Git ejecuta antes o después de eventos clave. Piensa en ellos como asistentes que:
+- ✋ **Interceptan acciones** (como commits o pushes)
+- 🔍 **Validan cambios**
+- 🤖 **Automatizan tareas repetitivas**
+
+Se almacenan en `.git/hooks` y hay ejemplos predefinidos (terminan en `.sample`). Para activarlos:
+```bash
+chmod +x .git/hooks/pre-commit  # Da permisos de ejecución
+```
+</details><details> <summary><strong>💻 Hooks Locales (Cliente)</strong></summary>
+  
+Los más útiles:
+
+pre-commit: Ejecuta tests rápidos o linters
+
+```bash
+# Ejemplo: Verificar ESLint antes de commitear
+npm run lint
+```
+commit-msg: Valida el formato del mensaje
+
+```bash
+# Requiere mensajes con prefijo (feat, fix, etc.)
+if ! grep -qE '^(feat|fix|docs):' "$1"; then
+  echo "Formato inválido!" >&2
+  exit 1
+fi
+```
+pre-push: Ejecuta tests completos
+
+```bash
+npm test
+```
+📌 No se comparten por defecto (cada dev debe configurarlos).
+
+</details><details> <summary><strong>🌐 Hooks Remotos (Servidor)</strong></summary>
+  
+Comunes en servidores Git:
+
+pre-receive: Valida permisos o políticas
+
+```bash
+# Rechaza pushes a main sin PR
+if [ "$(git rev-parse --symbolic-full-name HEAD)" = "refs/heads/main" ]; then
+  echo "¡Usa Pull Requests!" >&2
+  exit 1
+fi
+```
+post-receive: Notifica a Slack o despliega
+
+```bash
+curl -X POST -H 'Content-type: application/json' \
+--data '{"text":"Nuevo push en repo X"}' $SLACK_WEBHOOK
+```
+🔒 Suelen configurarse en GitHub/GitLab CI.
+
+</details><details> <summary><strong>🛠 Crear Hooks Personalizados</strong></summary>
+
+Pasos:
+
+Edita/Crea el archivo en .git/hooks/
+
+```bash
+vim .git/hooks/pre-commit
+```
+Usa cualquier lenguaje (Bash, Python, etc.):
+
+```python
+#!/usr/bin/env python3
+import sys
+if "WIP" in open(sys.argv[1]).read():
+    print("¡No committees trabajos en progreso!")
+    sys.exit(1)
+```
+Dale permisos:
+
+```bash
+chmod +x .git/hooks/pre-commit
+```
+💡 Tip: Usa husky para hooks en proyectos Node.js.
+
+</details><details> <summary><strong>⚡ Alias Útiles</strong></summary>
+  
+Añade a ~/.gitconfig:
+
+```ini
+[alias]
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --date=short --graph
+  st = status -sb
+  co = checkout
+  undo = reset HEAD~1 --mixed
+  amend = commit --amend --no-edit
+```
+Ejemplos:
+
+```bash
+git st  # Status compacto
+git hist  # Historial visual
+```
+</details><details> <summary><strong>📂 Ignorar Archivos</strong></summary>
+  
+Para un proyecto (/.gitignore):
+```bash
+# Ignorar node_modules y archivos de IDE
+node_modules/
+.idea/
+*.log
+```
+Globalmente:
+
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+```
+Dejar de trackear (sin borrar):
+
+```bash
+git rm --cached config.local.json
+```
+🔍 Genera .gitignore: gitignore.io
+
+</details><details> <summary><strong>🔧 Trucos Avanzados</strong></summary>
+  
+Buscar en el historial:
+
+```bash
+git log -S "functionName"  # Busca cambios en código
+```
+Ver cambios de un archivo:
+
+```bash
+git blame archivo.js  # ¿Quién escribió cada línea?
+```
+Guardar cambios temporalmente:
+
+```bash
+git stash  # Guarda cambios sin commit
+git stash pop  # Recupera
+```
+</details>
