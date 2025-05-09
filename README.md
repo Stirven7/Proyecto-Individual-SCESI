@@ -701,3 +701,169 @@ gh pr merge 1234 --merge
 gh pr revert 1234
 ```
 </details>
+
+# 📚 Capítulo 6 - GitFlow
+
+<details>
+
+  <summary><strong>🔀 GitFlow: El Flujo Estándar</strong></summary>
+
+GitFlow es como el **sistema de metro** de tu código: líneas claras con paradas definidas. Así funciona:
+
+### 🚉 Estaciones principales (ramas permanentes)
+```bash
+# Línea de producción (nunca cierra)
+git branch main
+
+# Línea de pre-producción (todos suben aquí primero)
+git branch develop
+```
+🚋 Trenes temporales (ramas de trabajo)
+```bash
+# Tren de nuevas características (feature)
+git checkout -b feature/user-auth develop
+
+# Tren de emergencia (hotfix)
+git checkout -b hotfix/404-error main
+
+# Tren de lanzamiento (release)
+git checkout -b release/v1.3 develop
+```
+Comandos clave para conductores:
+
+```bash
+# Iniciar GitFlow (configura automáticamente todo)
+git flow init
+
+# Lanzar nueva feature
+git flow feature start search-filters
+```
+Diagrama del metro:
+```bash
+main    ——○————————○————————○—————○
+           \       |       /
+develop    —○—○—○—○—○—○—○—
+             /     |     \
+feature    ○○○   ○○○   ○○○
+```
+</details><details> <summary><strong>🔄 Ciclo de Vida de las Ramas</strong></summary>
+  
+1. Features (2-3 días de vida):
+
+```bash
+# Abrir línea nueva
+git flow feature start payment-gateway
+
+# Subir al repositorio
+git flow feature publish payment-gateway
+
+# Cerrar línea (fusiona a develop)
+git flow feature finish payment-gateway
+```
+2. Hotfixes (Horas):
+
+```bash
+git flow hotfix start session-expiry
+# ...correcciones rápidas...
+git flow hotfix finish session-expiry  # Fusiona a main y develop
+```
+3. Releases (1-2 semanas):
+
+```bash
+git flow release start v1.4
+# ...preparar lanzamiento...
+git flow release finish v1.4  # Fusiona a main y develop
+```
+Tip: Usa etiquetas semánticas:
+
+```bash
+git tag -a v1.4.0 -m "Lanzamiento estable"
+```
+</details><details> <summary><strong>⚠️ Casos de Uso Reales</strong></summary>
+  
+Cuándo usar GitFlow:
+
+🏦 Proyectos empresariales con ciclos de lanzamiento fijos
+
+📱 Apps móviles con versionado estricto
+
+🛠️ Equipos >5 desarrolladores
+
+Cuándo evitar GitFlow:
+
+🚀 Startups con deploy continuo
+
+🧪 Proyectos experimentales
+
+👨‍💻 Equipos pequeños (<3 personas)
+
+Ejemplo en la vida real:
+
+```bash
+# 1. Desarrollo normal
+git flow feature start dark-mode
+git commit -m "feat: añade toggle dark/light"
+
+# 2. Lanzamiento
+git flow release start v2.1
+git flow release finish v2.1
+
+# 3. Emergencia
+git flow hotfix start login-crash
+git commit -m "fix: null pointer en auth"
+git flow hotfix finish login-crash
+```
+</details><details> <summary><strong>🔧 Configuración Avanzada</strong></summary>
+  
+Personaliza nombres de ramas:
+
+```bash
+git config gitflow.prefix.feature "func/"
+git config gitflow.prefix.hotfix "parche/"
+```
+Integración con CI/CD:
+```bash
+# Ejemplo .gitlab-ci.yml
+stages:
+  - test
+  - deploy
+
+test_feature:
+  only:
+    - /^func/.*$/
+  script: npm test
+
+deploy_prod:
+  only:
+    - main
+  script: ./deploy.sh
+```
+Herramientas visuales:
+
+```bash
+git log --graph --abbrev-commit --decorate --all
+# O instala:
+brew install tig  # Navegador interactivo
+```
+</details><details> <summary><strong>💡 Mitos y Verdades</strong></summary>
+
+Mito: "GitFlow es obligatorio para proyectos serios"
+Realidad: Muchos proyectos modernos prefieren GitHub Flow o Trunk-Based
+
+Mito: "Las ramas de release son innecesarias"
+Realidad: Son útiles para:
+
+📦 Preparar changelogs
+
+🔍 Última ronda de testing
+
+🏷 Versionado preciso
+
+Comparación de comandos:
+
+Acción	GitFlow	GitHub Flow
+Nueva func	git flow feature start	git checkout -b feat
+Deploy	git flow release finish	git push origin main
+Fix urgente	git flow hotfix start	git checkout -b fix
+
+</details>
