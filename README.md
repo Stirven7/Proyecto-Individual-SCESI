@@ -1244,3 +1244,128 @@ git stash  # Guarda cambios sin commit
 git stash pop  # Recupera
 ```
 </details>
+
+# 🕵️‍♂️ Capítulo 10 - Comandos Escondidos de Git 
+
+<details>
+<summary>🔍 Inspección Avanzada</summary>
+
+```bash
+# Ver cambios lado a lado (más legible)
+git diff --color-words --word-diff-regex='\w+|[^[:space:]]'
+
+# Ver historial de cambios de un archivo específico
+git log -p -- archivo.txt
+
+# Ver quién escribió cada línea (con fechas)
+git blame -e -w --date=short archivo.py
+```
+</details><details> <summary>🌿 Manejo Inteligente de Ramas</summary>
+  
+```bash
+# Ver las últimas ramas trabajadas (útil cuando tienes muchas)
+git for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short)%(color:reset) - %(contents:subject)'
+
+# Crear rama desde un commit específico
+git branch nueva-rama abc1234
+
+# Ver diferencias con la rama remota
+git diff @{u}  # @{u} = upstream branch
+```
+</details><details> <summary>💾 Trabajo con Commits</summary>
+  
+```bash
+# Modificar el mensaje del último commit
+git commit --amend
+
+# Deshacer commit pero mantener cambios en staging
+git reset --soft HEAD~1
+
+# Seleccionar cambios específicos de otro commit (cherry-pick interactivo)
+git cherry-pick -n abc123  # -n para no hacer commit automático
+```
+</details><details> <summary>⚙️ Configuraciones Que Deberías Tener</summary>
+  
+```bash
+# Mejorar el output de git status
+git config --global status.short true
+git config --global status.branch true
+
+# Configurar alias útiles
+git config --global alias.undo 'reset HEAD~1'
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+
+# Habilitar autocompletado (Linux/Mac)
+source /usr/share/bash-completion/completions/git
+```
+</details><details> <summary>📁 Manejo de Archivos Pro</summary>
+  
+```bash
+# Ver archivos modificados de forma compacta
+git status -s -b
+
+# Añadir cambios interactivos (seleccionar por trozos)
+git add -p
+
+# Ver diferencias en archivos no trackeados
+git diff --no-index -- archivo1 archivo2
+
+</details><details> <summary>☁️ Trabajo con Remotos</summary>
+
+```bash
+# Ver URLs de los remotos
+git remote -v
+
+# Añadir un segundo remoto
+git remote add upstream URL
+
+# Descargar cambios sin hacer merge (útil para revisar)
+git fetch --all
+```
+</details><details> <summary>🧼 Limpieza Segura</summary>
+
+```bash
+# Ver qué se borraría (dry run)
+git clean -ndX
+
+# Eliminar archivos ignorados
+git clean -fX
+
+# Compactar repositorio (sin perder nada)
+git gc --auto
+</details><details> <summary>🤝 Colaboración Mejorada</summary>
+bash
+# Ver contribuciones gráficas
+git shortlog -sn --all --no-merges
+
+# Crear parche para compartir
+git format-patch HEAD~1..HEAD -o patches/
+
+# Aplicar parches recibidos
+git am patches/*.patch
+```
+</details><details> <summary>⏪ Deshacer Como Experto</summary>
+  
+```bash
+# Descartar cambios en un archivo
+git restore archivo.txt
+
+# Revertir un commit específico
+git revert abc123 --no-edit
+
+# Recuperar archivo borrado
+git checkout HEAD^ -- archivo-borrado.txt
+```
+</details><details> <summary>🎁 Bonus: Comandos Visuales</summary>
+  
+```bash
+# Interfaz gráfica para staging (requiere tig)
+tig status
+
+# Ver árbol de commits interactivo
+git log --graph --oneline --all
+
+# Ver cambios actuales de forma compacta
+git diff --stat
+```
+</details>
