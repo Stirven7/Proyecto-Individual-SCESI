@@ -45,11 +45,30 @@ git config --list
 Te muestra todo, desde tu nombre hasta el editor que usas.
 
 </details> <details> <summary><strong>🚀 Cómo empezar un proyecto nuevo con Git</strong></summary> Para crear un repositorio Git en tu proyecto, solo haz:
-  
-``` bash
+ 
+🚀 Cuando estás comenzando un proyecto nuevo en Git, lo primero que debes hacer es navegar a la carpeta donde se encuentra tu proyecto, y luego inicializar un repositorio para que Git comience a rastrear los cambios en tus archivos. A continuación, te explico el proceso completo de inicialización, configuración y primer commit. 📂🔍
+
+1. 🗂️ Navegar a la Carpeta de tu Proyecto
+Primero, abre la terminal o línea de comandos y navega hasta la carpeta donde se encuentra tu proyecto. Usa el comando `cd` (change directory) para moverte a la carpeta deseada:
+
+```bash
+cd /ruta/a/tu/proyecto
+```
+Si el proyecto está en tu escritorio, por ejemplo, el comando podría ser algo como:
+
+```bash
+cd ~/Desktop/mi-proyecto
+```
+🔍 Asegúrate de estar en el directorio correcto antes de proceder.
+
+2. ⚙️ Inicializar un Repositorio Git en Tu Proyecto
+Una vez que estés dentro de la carpeta de tu proyecto, el siguiente paso es inicializar un repositorio Git para que Git comience a rastrear todos los cambios que hagas. Para hacerlo, ejecuta el siguiente comando:
+
+```bash
 git init
-  ``` 
-Y listo, Git empieza a rastrear todo lo que haces en esa carpeta.
+```
+🛠️ Este comando creará un directorio oculto llamado .git en tu proyecto, donde Git almacenará todos los archivos e información necesaria para el control de versiones.
+
 
 </details>
 
