@@ -977,7 +977,7 @@ hist = log --pretty=format:'%h %ad | %s%d [%an]' --date=short --graph
 
 <details>
   
-  </details><details><summary><strong> 📚 ¿Es Recomendable Deshacer Cambios en Git?  Cambios</strong></summary>
+<summary><strong> 📚 ¿Es Recomendable Deshacer Cambios en Git?  Cambios</strong></summary>
 
 
 1. Información Sensible Expuesta
