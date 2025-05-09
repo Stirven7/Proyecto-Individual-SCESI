@@ -1309,6 +1309,7 @@ git add -p
 
 # Ver diferencias en archivos no trackeados
 git diff --no-index -- archivo1 archivo2
+```
 
 </details><details> <summary>☁️ Trabajo con Remotos</summary>
 
