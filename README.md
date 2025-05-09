@@ -867,3 +867,107 @@ Deploy	git flow release finish	git push origin main
 Fix urgente	git flow hotfix start	git checkout -b fix
 
 </details>
+
+# 📚 Capítulo 7 - Buenas Prácticas en Git
+
+<details>
+  <summary><strong>⏱️ 1. Frecuencia de commits</strong></summary>
+
+Haz commits frecuentes, pero con sentido. Es mejor hacer varios commits pequeños que uno enorme al final del día. Piensa en commits como puntos de guardado lógicos: cuando arreglas un bug específico o añades una función completa.
+
+```bash
+# ✅ Así sí:
+git commit -m "fix: corrige error de validación en formulario"
+
+# ❌ Así no:
+git commit -m "muchos cambios"
+```
+🔹 No hagas commits de cambios sin importancia. Cada commit debe tener un propósito claro.
+
+</details><details> <summary><strong>✍️ 2. Mensajes de commit claros</strong></summary>
+  
+📌 Usa verbos en imperativo (añade, corrige, elimina) y sé específico:
+
+```bash
+# 💚 Buen ejemplo:
+git commit -m "feat: añade paginación a lista de productos"
+
+# 💔 Mal ejemplo:
+git commit -m "paginación"
+```
+📝 Si el cambio necesita explicación, usa el cuerpo del commit:
+
+```bash
+git commit -m "fix: corrige cálculo de impuestos" -m "
+- Problema: no consideraba tasa regional
+- Solución: añade campo 'tax_rate' al cálculo
+- Impacto: afecta reportes fiscales
+"
+```
+🏷️ Prefijos útiles:
+
+feat:: nueva funcionalidad 🆕
+
+fix:: corrección de errores 🐛
+
+docs:: cambios en documentación 📄
+
+</details><details> <summary><strong>🌿 3. Nombrado de ramas</strong></summary>
+  
+Usa nombres descriptivos y consistentes:
+
+```bash
+# 🌟 Para nuevas funcionalidades:
+git checkout -b feat/buscador-avanzado
+
+# 🛠️ Para correcciones:
+git checkout -b fix/error-login-movil
+
+# 🎫 Si usas sistema de tickets:
+git checkout -b fix/PROJ-123-error-404
+```
+⚠️ Evita nombres genéricos como "prueba" o "cambios".
+
+</details><details> <summary><strong>⏪ 4. Alterar el historial</strong></summary>
+
+🚨 Normalmente no debes modificar el historial de commits, especialmente si ya los compartiste. Pero hay excepciones:
+
+Para commits locales no compartidos:
+
+```bash
+git commit --amend  # ✏️ Corrige el último commit
+```
+Si subiste información sensible:
+
+```bash
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch archivo-secreto.txt' --prune-empty --tag-name-filter cat -- --all
+```
+🔒 La alternativa segura:
+
+```bash
+git revert mal_commit  # ↩️ Crea commit que deshace cambios
+```
+</details><details> <summary><strong>🛠️ 5. Herramientas útiles</strong></summary>
+  
+🔍 Para verificar cambios antes de commitear:
+
+```bash
+git diff --staged
+```
+📜 Para ver el historial claro:
+
+```bash
+git log --oneline --graph
+```
+🧩 Para manejar cambios complejos:
+
+```bash
+git add -p  # ➕ Añade cambios interactivamente
+```
+⚡ Alias recomendados (añade a tu .gitconfig):
+
+```ini
+[alias]
+hist = log --pretty=format:'%h %ad | %s%d [%an]' --date=short --graph
+```
+</details>
